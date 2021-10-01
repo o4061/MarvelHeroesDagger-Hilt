@@ -1,10 +1,10 @@
-package com.userfaltakas.marvelheroesdagger_hilt.ui.activity
+package com.userfaltakas.marvelheroesdagger_hilt.ui.fragment.allHeroes
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.userfaltakas.marvelheroesdagger_hilt.api.Resource
-import com.userfaltakas.marvelheroesdagger_hilt.constant.Constants.PAGE_OFFSET
+import com.userfaltakas.marvelheroesdagger_hilt.constant.Constants
 import com.userfaltakas.marvelheroesdagger_hilt.data.api.HeroesResponse
 import com.userfaltakas.marvelheroesdagger_hilt.data.api.Result
 import com.userfaltakas.marvelheroesdagger_hilt.repository.HeroesRepository
@@ -14,7 +14,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class StartViewModel @Inject constructor(
+class AllHeroesViewModel @Inject constructor(
     private val heroesRepository: HeroesRepository
 ) : ViewModel() {
 
@@ -33,7 +33,7 @@ class StartViewModel @Inject constructor(
     private fun handleHeroesResponse(response: Response<HeroesResponse>): Resource<HeroesResponse> {
         if (response.isSuccessful) {
             response.body()?.let {
-                offset += PAGE_OFFSET
+                offset += Constants.PAGE_OFFSET
                 if (heroesResponse == null) {
                     heroesResponse = it
                     total = it.data?.total!!
@@ -54,16 +54,7 @@ class StartViewModel @Inject constructor(
         return offset >= total
     }
 
-    fun addHeroToSquad(result: Result) = viewModelScope.launch {
-        heroesRepository.addHero(result)
-    }
-
-    fun removeHeroFromSquad(result: Result) = viewModelScope.launch {
-        heroesRepository.removeHero(result)
-    }
-
     fun getSquad() = viewModelScope.launch {
-        val response = heroesRepository.getSquad()
-        squad.postValue(response)
+        squad.postValue(heroesRepository.getSquad())
     }
 }

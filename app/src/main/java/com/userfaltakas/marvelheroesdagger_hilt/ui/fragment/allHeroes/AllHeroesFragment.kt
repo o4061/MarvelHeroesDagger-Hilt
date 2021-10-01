@@ -1,4 +1,4 @@
-package com.userfaltakas.marvelheroesdagger_hilt.ui.fragment
+package com.userfaltakas.marvelheroesdagger_hilt.ui.fragment.allHeroes
 
 import android.os.Bundle
 import android.util.Log
@@ -13,10 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.userfaltakas.marvelheroesdagger_hilt.api.Resource
 import com.userfaltakas.marvelheroesdagger_hilt.constant.Constants.PAGE_OFFSET
-import com.userfaltakas.marvelheroesdagger_hilt.data.ui.HeroPreviewDestination
 import com.userfaltakas.marvelheroesdagger_hilt.databinding.FragmentAllHeroesBinding
 import com.userfaltakas.marvelheroesdagger_hilt.network.NetworkManager
-import com.userfaltakas.marvelheroesdagger_hilt.ui.activity.StartViewModel
 import com.userfaltakas.marvelheroesdagger_hilt.ui.adapter.HeroesAdapter
 import com.userfaltakas.marvelheroesdagger_hilt.ui.adapter.SquadAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AllHeroesFragment : Fragment() {
     private var _binding: FragmentAllHeroesBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by activityViewModels<StartViewModel>()
+    private val viewModel by activityViewModels<AllHeroesViewModel>()
     private lateinit var allHeroesAdapter: HeroesAdapter
     private lateinit var squadAdapter: SquadAdapter
     private var isLoading = false
@@ -61,8 +59,7 @@ class AllHeroesFragment : Fragment() {
         squadAdapter.setOnItemClickListener {
             val action =
                 AllHeroesFragmentDirections.actionAllHeroesFragmentToHeroPreviewFragment(
-                    it,
-                    HeroPreviewDestination.FROM_SQUAD
+                    it
                 )
             Navigation.findNavController(requireView()).navigate(action)
         }
@@ -78,8 +75,7 @@ class AllHeroesFragment : Fragment() {
         allHeroesAdapter.setOnItemClickListener {
             val action =
                 AllHeroesFragmentDirections.actionAllHeroesFragmentToHeroPreviewFragment(
-                    it,
-                    HeroPreviewDestination.FROM_WEB
+                    it
                 )
             Navigation.findNavController(requireView()).navigate(action)
         }

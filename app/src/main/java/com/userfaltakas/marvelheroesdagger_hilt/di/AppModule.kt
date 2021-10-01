@@ -28,7 +28,6 @@ object AppModule {
         .build()
         .create(HeroesAPI::class.java)
 
-
     @Singleton
     @Provides
     fun provideHeroesDatabase(

@@ -1,10 +1,10 @@
 package com.userfaltakas.marvelheroesdagger_hilt.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import com.userfaltakas.marvelheroesdagger_hilt.R
 import com.userfaltakas.marvelheroesdagger_hilt.databinding.ActivityStartBinding
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -4,7 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.AllHeroesFragment">
+    tools:context=".ui.fragment.allHeroes.AllHeroesFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Superhero Squad Marker" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <TextView
         android:id="@+id/squadTitle"
@@ -18,7 +36,7 @@
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/appBar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/squadRecyclerView"

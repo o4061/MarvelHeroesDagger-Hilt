@@ -13,4 +13,7 @@ interface HeroDao {
 
     @Delete
     suspend fun delete(result: Result)
+
+    @Query("SELECT EXISTS(SELECT * FROM squad WHERE id = :id)")
+    suspend fun isHeroExist(id: Int): Boolean
 }

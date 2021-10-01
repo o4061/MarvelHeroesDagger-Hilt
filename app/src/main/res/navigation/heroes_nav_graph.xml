@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/heroPreviewFragment"
-        android:name="com.userfaltakas.marvelheroesdagger_hilt.ui.fragment.HeroPreviewFragment"
+        android:name="com.userfaltakas.marvelheroesdagger_hilt.ui.fragment.heroesPreview.HeroPreviewFragment"
         android:label="fragment_hero_preview"
         tools:layout="@layout/fragment_hero_preview">
         <action
@@ -16,13 +16,10 @@
         <argument
             android:name="hero"
             app:argType="com.userfaltakas.marvelheroesdagger_hilt.data.api.Result" />
-        <argument
-            android:name="destination"
-            app:argType="com.userfaltakas.marvelheroesdagger_hilt.data.ui.HeroPreviewDestination" />
     </fragment>
     <fragment
         android:id="@+id/allHeroesFragment"
-        android:name="com.userfaltakas.marvelheroesdagger_hilt.ui.fragment.AllHeroesFragment"
+        android:name="com.userfaltakas.marvelheroesdagger_hilt.ui.fragment.allHeroes.AllHeroesFragment"
         android:label="fragment_all_heroes"
         tools:layout="@layout/fragment_all_heroes">
         <action

@@ -9,6 +9,10 @@ data class Thumbnail(
     val path: String? = null
 ) : Parcelable {
     fun getURL(): String {
-        return "${this.path}.${this.extension}"
+        return if (this.extension == this.path) {
+            "${this.path}"
+        } else {
+            "${this.path}.${this.extension}"
+        }
     }
 }

@@ -38,7 +38,7 @@ class SquadAdapter : RecyclerView.Adapter<SquadAdapter.HeroViewHolder>() {
         val binding = holder.binding
 
         holder.itemView.apply {
-            Glide.with(this).load(hero.thumbnail?.path).into(binding.image)
+            Glide.with(this).load(hero.thumbnail?.getURL()).into(binding.image)
             binding.name.text = hero.name
             setOnClickListener {
                 onItemClickListener?.let { it(hero) }

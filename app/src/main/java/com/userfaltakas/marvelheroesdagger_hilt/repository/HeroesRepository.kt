@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class HeroesRepository @Inject constructor(
     val heroDao: HeroDao,
-    val heroesApi: HeroesAPI
+    private val heroesApi: HeroesAPI
 ) {
 
     suspend fun getHeroes(offset: Int): Response<HeroesResponse> {
@@ -22,8 +22,8 @@ class HeroesRepository @Inject constructor(
         return heroesApi.getHeroes(filter)
     }
 
-
     suspend fun addHero(result: Result) = heroDao.insert(result)
     suspend fun getSquad() = heroDao.getHeroes()
     suspend fun removeHero(result: Result) = heroDao.delete(result)
+    suspend fun isHeroExist(id: Int) = heroDao.isHeroExist(id)
 }
