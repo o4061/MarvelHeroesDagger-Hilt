@@ -7,15 +7,14 @@ import com.userfaltakas.marvelheroesdagger_hilt.api.Resource
 import com.userfaltakas.marvelheroesdagger_hilt.constant.Constants
 import com.userfaltakas.marvelheroesdagger_hilt.data.api.HeroesResponse
 import com.userfaltakas.marvelheroesdagger_hilt.data.api.Result
-import com.userfaltakas.marvelheroesdagger_hilt.repository.HeroesRepository
+import com.userfaltakas.marvelheroesdagger_hilt.repository.HeroRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class AllHeroesViewModel @Inject constructor(
-    private val heroesRepository: HeroesRepository
+    private val heroesRepository: HeroRepository
 ) : ViewModel() {
 
     val heroes: MutableLiveData<Resource<HeroesResponse>> = MutableLiveData()
@@ -27,27 +26,28 @@ class AllHeroesViewModel @Inject constructor(
     fun getHeroes() = viewModelScope.launch {
         heroes.postValue(Resource.Loading())
         val response = heroesRepository.getHeroes(offset)
-        heroes.postValue(handleHeroesResponse(response))
+        heroes.postValue(handleHeroPaging(response))
     }
 
-    private fun handleHeroesResponse(response: Response<HeroesResponse>): Resource<HeroesResponse> {
-        if (response.isSuccessful) {
-            response.body()?.let {
+    private fun handleHeroPaging(response: Resource<HeroesResponse>): Resource<HeroesResponse> {
+        when (response) {
+            is Resource.Success -> {
                 offset += Constants.PAGE_OFFSET
                 if (heroesResponse == null) {
-                    heroesResponse = it
-                    total = it.data?.total!!
+                    heroesResponse = response.data
+                    total = response.data?.data?.total!!
                 } else {
                     val oldHeroes = heroesResponse!!.data?.results
-                    val newHeroes = it.data?.results
+                    val newHeroes = response.data?.data?.results
                     if (newHeroes != null) {
                         oldHeroes?.addAll(newHeroes)
                     }
                 }
-                return Resource.Success(heroesResponse ?: it)
+                return Resource.Success(heroesResponse!!)
             }
+            else ->
+                return response
         }
-        return Resource.Error(response.message())
     }
 
     fun isLastPage(): Boolean {

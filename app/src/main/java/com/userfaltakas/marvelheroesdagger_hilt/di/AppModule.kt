@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.room.Room
 import com.userfaltakas.marvelheroesdagger_hilt.api.HeroesAPI
 import com.userfaltakas.marvelheroesdagger_hilt.constant.Constants.BASE_URL
+import com.userfaltakas.marvelheroesdagger_hilt.constant.Constants.DATABASE_NAME
 import com.userfaltakas.marvelheroesdagger_hilt.database.HeroDao
 import com.userfaltakas.marvelheroesdagger_hilt.database.HeroDatabase
-import com.userfaltakas.marvelheroesdagger_hilt.repository.HeroesRepository
+import com.userfaltakas.marvelheroesdagger_hilt.repository.DefaultHeroesRepository
+import com.userfaltakas.marvelheroesdagger_hilt.repository.HeroRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,7 +37,7 @@ object AppModule {
     ): HeroDatabase = Room.databaseBuilder(
         app,
         HeroDatabase::class.java,
-        "squad_db.db"
+        DATABASE_NAME
     ).build()
 
     @Singleton
@@ -44,6 +46,6 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideHeroesRepository(heroDao: HeroDao, heroesAPI: HeroesAPI): HeroesRepository =
-        HeroesRepository(heroDao, heroesAPI)
+    fun provideDefaultHeroesRepository(heroDao: HeroDao, heroesAPI: HeroesAPI) =
+        DefaultHeroesRepository(heroDao, heroesAPI) as HeroRepository
 }

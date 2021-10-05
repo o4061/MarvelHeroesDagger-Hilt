@@ -4,14 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.userfaltakas.marvelheroesdagger_hilt.data.api.Result
-import com.userfaltakas.marvelheroesdagger_hilt.repository.HeroesRepository
+import com.userfaltakas.marvelheroesdagger_hilt.repository.HeroRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HeroPreviewViewModel @Inject constructor(
-    private val heroesRepository: HeroesRepository
+    private val heroesRepository: HeroRepository
 ) : ViewModel() {
 
     lateinit var heroExist: MutableLiveData<Boolean>

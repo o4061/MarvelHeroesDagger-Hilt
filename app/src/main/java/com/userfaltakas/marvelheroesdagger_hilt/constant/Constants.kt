@@ -9,6 +9,7 @@ object Constants {
     private const val PRIVATE_KEY = "46eeb6faf3efb862ea34afa19b3b4658dcfa0e37"
     const val BASE_URL = "https://gateway.marvel.com/v1/public/"
     const val PAGE_OFFSET = 20
+    const val DATABASE_NAME = "squad_db.db"
     val ts = Timestamp(System.currentTimeMillis()).time.toString()
 
     fun hash(): String {
